@@ -43,7 +43,24 @@ import {
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
-const API = "http://localhost:7000/books";
+
+// Obtener la URL de la API
+function obtenerURLAPI() {
+  let urlAPI = "";
+
+  if (window.location.hostname === "localhost") {
+    // URL de la API en entorno local
+    urlAPI = "localhost:7000";
+  } else {
+    // URL de la API en entorno remoto
+    urlAPI = "24.199.120.226:30528";
+  }
+
+  return urlAPI; 
+}
+
+const API =  `http://${obtenerURLAPI()}/books`;
+
 
 function items() {
   // llama a los items (array objects items)
