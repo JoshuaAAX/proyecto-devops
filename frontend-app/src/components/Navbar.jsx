@@ -20,7 +20,7 @@ return (
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
            <HStack spacing={8} alignItems={'center'}>
              <Box>
-                <Heading color='white' size='lg'>DROP</Heading>
+                <Heading color='white' size='lg'>DROP_PRUEBA</Heading>
              </Box>
              <HStack>
                 <Link color="white" onClick={() => navigate("/books")}>Libros</Link>
