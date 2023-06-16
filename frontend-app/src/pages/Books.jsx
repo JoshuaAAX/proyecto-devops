@@ -56,11 +56,10 @@ function obtenerURLAPI() {
     urlAPI = "24.199.120.226:30528";
   }
 
-  return urlAPI; 
+  return urlAPI;
 }
 
-const API =  `http://${obtenerURLAPI()}/books`;
-
+const API = `http://${obtenerURLAPI()}/books`;
 
 function items() {
   // llama a los items (array objects items)
@@ -68,9 +67,18 @@ function items() {
 
   // guarda un item seleccionado para editar (object item)
   const [selectedItem, setSelectedItem] = useState(null);
+  console.log(selectedItem)
 
   // guarda un item para agregar (object item)
-  const [newItem, setNewItem] = useState({ nombre: "", descripcion: "" });
+  const [newItem, setNewItem] = useState({
+    title: "",
+    score: 0,
+    published_date: 1999,
+    id_category: 1,
+    id_author: 2,
+    id_editorial: 3
+  });
+  //console.log(newItem)
 
   // logica para el boton de editar
   // usado para el boton de editar (boolean)
@@ -84,12 +92,14 @@ function items() {
 
   useEffect(() => {
     fetchItems();
+    //console.log(items)
   }, []);
 
   const fetchItems = async () => {
     try {
       const response = await axios.get(API);
       setItems(response.data);
+      console.log(items)
     } catch (error) {
       console.error(error);
     }
@@ -107,7 +117,12 @@ function items() {
 
   const updateItem = async (itemId) => {
     try {
-      const response = await axios.put(API + `/${itemId}`, selectedItem);
+      const response = await axios.put(API + `/${itemId}`, {
+        ...selectedItem,
+        id_category: selectedItem.id_category || 1,
+        id_author: selectedItem.id_author || 1,
+        id_editorial: selectedItem.id_editorial || 1,
+      });
       console.log(response.data.mensaje);
       onEditItemClose();
       fetchItems();
@@ -124,6 +139,7 @@ function items() {
       console.error(error);
     }
   };
+  
 
   const addNewItem = async () => {
     try {
@@ -131,7 +147,14 @@ function items() {
       console.log(response.data.mensaje);
       onNewItemClose();
       fetchItems();
-      setNewItem({ nombre: "", descripcion: "" });
+      setNewItem({
+        title: "",
+        score: 0,
+        published_date: 1999,
+        id_category: 1,
+        id_author: 2,
+        id_editorial: 3
+      });
       toast({
         title: "Agregar Item",
         description: "El item se agregó correctamente",
@@ -144,7 +167,6 @@ function items() {
       console.error(error);
     }
   };
-
   const openEdit = (item) => {
     setSelectedItem(item);
     onEditItemOpen();
@@ -152,6 +174,7 @@ function items() {
 
   const openAdd = () => {
     onNewItemOpen();
+    console.log("se abrio el formulario")
   };
 
   return (
@@ -179,6 +202,7 @@ function items() {
             icon={<AddIcon />}
             onClick={openAdd} />
         </Box>
+
         {/*tabla de presetacion de datos*/}
         <Box overflowY="auto" maxHeight="2xl">
           <TableContainer>
@@ -241,13 +265,53 @@ function items() {
           <ModalBody>
             <FormControl>
               <FormLabel>Nombre</FormLabel>
-              <Input ref={initialRef} value={selectedItem?.title} onChange={(e) => setSelectedItem({ ...selectedItem, title: e.target.value })} />
+              <Input
+                ref={initialRef}
+                value={selectedItem?.title}
+                onChange={(e) => setSelectedItem({ ...selectedItem, title: e.target.value })}
+              />
             </FormControl>
 
             <FormControl mt={4}>
               <FormLabel>Score</FormLabel>
-              <Input value={selectedItem?.score} onChange={(e) => setSelectedItem({ ...selectedItem, score: parseInt(e.target.value) })} />
+              <Input
+                value={selectedItem?.score}
+                onChange={(e) => setSelectedItem({ ...selectedItem, score: parseInt(e.target.value) || 1 })}
+              />
             </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Fecha de publicacion</FormLabel>
+              <Input
+                value={selectedItem?.published_date}
+                onChange={(e) => setSelectedItem({ ...selectedItem, published_date: parseInt(e.target.value) || 1 })}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Categoria</FormLabel>
+              <Input
+                value={selectedItem?.name_category}
+                onChange={(e) => setSelectedItem({ ...selectedItem, id_category: parseInt(e.target.value) || 1 })}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Autor</FormLabel>
+              <Input
+                value={selectedItem?.name_author}
+                onChange={(e) => setSelectedItem({ ...selectedItem, id_author: parseInt(e.target.value) || 1 })}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Editorial</FormLabel>
+              <Input
+                value={selectedItem?.name_editorial}
+                onChange={(e) => setSelectedItem({ ...selectedItem, id_editorial: parseInt(e.target.value) || 1 })}
+              />
+            </FormControl>
+
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="teal" size="sm" mr={3} onClick={() => updateItem(selectedItem.isbn)}>
@@ -317,7 +381,7 @@ function items() {
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="teal" size="sm" mr={3} onClick={addNewItem}>
+            <Button colorScheme="teal" size="sm" mr={3} onClick={() => addNewItem()}>
               Guardar
             </Button>
             <Button colorScheme="gray" size="sm" onClick={onNewItemClose}>

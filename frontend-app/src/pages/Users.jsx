@@ -86,6 +86,7 @@ function Users() {
     try {
       const response = await axios.get(API);
       setUsers(response.data);
+      console.log(response.data)
     } catch (error) {
       console.error(error);
     }
@@ -177,48 +178,48 @@ function Users() {
               <Thead>
                 <Tr>
                   <Th>
-                    <Center>Id</Center>
+                    <Center>ID</Center>
                   </Th>
                   <Th>
-                    <Center>Fecha de Préstamo</Center>
+                    <Center>NOMBRE COMPLETO</Center>
                   </Th>
                   <Th>
-                    <Center>Fecha de Devolución</Center>
+                    <Center>CELLPHONE</Center>
                   </Th>
                   <Th>
-                    <Center>Nombre del Usuario</Center>
+                    <Center>ADDRESS</Center>
                   </Th>
                   <Th>
-                    <Center>Título del Libro</Center>
+                    <Center>ROLES</Center>
                   </Th>
                   <Th>
-                    <Center>Entregado</Center>
+                    <Center>EMAIL</Center>
                   </Th>
                   <Th>
-                    <Center>Editar</Center>
+                    <Center>EDITAR</Center>
                   </Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {users.map((loan) => (
-                  <Tr key={loan.id_loan}>
+                {users.map((user) => (
+                  <Tr key={user.id_user}>
                     <Td>
-                      <Center>{loan.id_loan}</Center>
+                      <Center>{user.id_user}</Center>
                     </Td>
                     <Td>
-                      <Center>{loan.loan_date}</Center>
+                      <Center>{user.full_name}</Center>
                     </Td>
                     <Td>
-                      <Center>{loan.devolution_date}</Center>
+                      <Center>{user.cellphone}</Center>
                     </Td>
                     <Td>
-                      <Center>{loan.full_name}</Center>
+                      <Center>{user.address}</Center>
                     </Td>
                     <Td>
-                      <Center>{loan.title}</Center>
+                      <Center>{user.roles}</Center>
                     </Td>
                     <Td>
-                      <Center>{loan.delivered}</Center>
+                      <Center>{user.email}</Center>
                     </Td>
                     <Td>
                       <Center>
@@ -226,7 +227,7 @@ function Users() {
                           colorScheme="teal"
                           size="sm"
                           icon={<EditIcon />}
-                          onClick={() => openEdit(loan)}
+                          onClick={() => openEdit(user)}
                         />
                       </Center>
                     </Td>
@@ -247,7 +248,7 @@ function Users() {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Editar el préstamo</ModalHeader>
+          <ModalHeader>Editar </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
