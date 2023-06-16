@@ -30,7 +30,16 @@ creates running container from image (devops-proyect):
 ```
 docker run -p 7000:7000 devops-proyect
 ```
-# ```Diseño: Arquitectura del pipeline de CI/CD```
+# ```Design: CI/CD pipeline architecture```
+*Technologies*  
+- Slack
+- Git/Github
+- Github Actions
+- Jest
+- Selenium
+- Docker
+- Kubernetes
+![image](https://github.com/JoshuaAAX/proyecto-devops/assets/65038415/d70fcb64-9152-492b-bb68-bcf2793d03ac)  
 
-![image](https://github.com/JoshuaAAX/proyecto-devops/assets/65038415/d70fcb64-9152-492b-bb68-bcf2793d03ac)
-
+# ```App Design```
+![image](https://github.com/JoshuaAAX/proyecto-devops/assets/65038415/e50a673a-ada3-49da-acaa-9a2b800e538f)
