@@ -10,24 +10,6 @@ const getAllLoans = async (req, res, next) => {
   }
 };
 
-//obtener un prestamo
-const getLoan = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const result = await pool.query(
-      'SELECT id_loan, loan_date, devolution_date, full_name, title  WHERE id_loan=$1',
-      [id]
-    );
-    if (result.rows.length > 0) {
-      return res.status(404).json({ message: 'Loan no found --update' });
-    }
-
-    return res.json(result.rows[0]);
-  } catch (error) {
-    next(error);
-  }
-};
-
 //crear un prestamo
 const createLoan = async (req, res, next) => {
   try {
@@ -66,7 +48,6 @@ const updateLoan = async (req, res, next) => {
 
 module.exports = {
   getAllLoans,
-  getLoan,
   createLoan,
   updateLoan,
 };

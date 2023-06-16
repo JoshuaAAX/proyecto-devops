@@ -1,49 +1,39 @@
-import { Flex,Box, Heading, Button, Spacer,  Text, HStack, Icon, IconButton} from "@chakra-ui/react";
-import {HamburgerIcon} from '@chakra-ui/icons'
-import { Avatar } from '@chakra-ui/react'
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
+import { 
+    Box ,
+    Flex,
+    Spacer,
+    ButtonGroup,
+    Button,
+    Heading,
+    HStack,
+    Link
+} from "@chakra-ui/react";
 
-  MenuDivider,
-} from '@chakra-ui/react'
+import { useNavigate } from "react-router-dom"
 
+const Navbar = () => {
 
+const navigate = useNavigate();
 
-export default function Navbar() {
-    return (
-
-        <Flex as="nav"  h="16" p="10px" alignItems="center"  gap="10px">
-           <IconButton icon={<HamburgerIcon/>}
-                       display={{md:"none"}}/>
-           <Heading as="h1">DropLibrary</Heading>
-           <Spacer/>
-            
-           
-           
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}
-                minW={0}>
-                <Avatar
-                  size={'sm'}
-                  src={'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9' }
-                />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>profile</MenuItem>
-                <MenuItem>settings</MenuItem>
-                <MenuDivider />
-                <MenuItem>Logout</MenuItem>
-              </MenuList>
-            </Menu>
-          
+return (
+    <Box bg='teal.500' px={4}>
+        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+           <HStack spacing={8} alignItems={'center'}>
+             <Box>
+                <Heading color='white' size='lg'>DROP_PRUEBA</Heading>
+             </Box>
+             <HStack>
+                <Link color="white" onClick={() => navigate("/books")}>Libros</Link>
+                <Link color="white" onClick={() =>  navigate("/loans")}>Prestamos</Link>
+                <Link color="white" onClick={() =>  navigate("/users")}>Usuarios</Link>
+             </HStack>
+           </HStack>
         </Flex>
+        <Flex>
 
-)
-}
+        </Flex>
+    </Box>
+ );
+};
+
+export default Navbar;

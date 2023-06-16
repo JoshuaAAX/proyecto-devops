@@ -5,13 +5,12 @@ const {
   getLoan,
   createLoan,
   updateLoan,
+  deleteLoans,
 } = require('../controllers/loans.controller');
 const pool = require('../db');
 
 //rutas crud prestamos
 router.get('/loans', getAllLoans);
-
-router.get('/loans/:id', getLoan);
 
 router.post('/loans', createLoan);
 
