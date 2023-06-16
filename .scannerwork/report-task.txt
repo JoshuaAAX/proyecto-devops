@@ -1,6 +1,6 @@
-projectKey=proyecto-devops
+projectKey=JoshuaAAX_proyecto-devops
 serverUrl=http://localhost:9000
 serverVersion=10.0.0.68432
-dashboardUrl=http://localhost:9000/dashboard?id=proyecto-devops
-ceTaskId=AYgx7b9bGXJpuazJYZP5
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYgx7b9bGXJpuazJYZP5
+dashboardUrl=http://localhost:9000/dashboard?id=JoshuaAAX_proyecto-devops
+ceTaskId=AYg2M2ZTv2eC4kSWm4AX
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYg2M2ZTv2eC4kSWm4AX

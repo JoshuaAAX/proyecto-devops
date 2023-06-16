@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.1% </span>
+                <span class="strong">68.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/38</span>
+                <span class='fraction'>26/38</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.1% </span>
+                <span class="strong">68.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/38</span>
+                <span class='fraction'>26/38</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -188,14 +188,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,19 +222,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,15 +279,15 @@ const getEditorial = async (req, res, next) =&gt; {
 };
 &nbsp;
 //crear una editorial
-const createEditorial = <span class="fstat-no" title="function not covered" >as</span>ync (req, res, next) =&gt; {
-<span class="cstat-no" title="statement not covered" >  try {</span>
-    const { name_editorial } = <span class="cstat-no" title="statement not covered" >req.body;</span>
-    const result = <span class="cstat-no" title="statement not covered" >await pool.query(</span>
+const createEditorial = async (req, res, next) =&gt; {
+  try {
+    const { name_editorial } = req.body;
+    const result = await pool.query(
       'INSERT INTO editorial VALUES (default, $1)  RETURNING *',
       [name_editorial]
     );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return res.json(result.rows[0]);</span>
+    return res.json(result.rows[0]);
   } catch (error) {
 <span class="cstat-no" title="statement not covered" >    next(error);</span>
   }
@@ -313,20 +313,20 @@ const deleteEditorial = <span class="fstat-no" title="function not covered" >as<
 };
 &nbsp;
 //actualizar una editorial
-const updateEditorial = <span class="fstat-no" title="function not covered" >as</span>ync (req, res, next) =&gt; {
-<span class="cstat-no" title="statement not covered" >  try {</span>
-    const { id } = <span class="cstat-no" title="statement not covered" >req.params;</span>
-    const { name_editorial } = <span class="cstat-no" title="statement not covered" >req.body;</span>
-    const result = <span class="cstat-no" title="statement not covered" >await pool.query(</span>
+const updateEditorial = async (req, res, next) =&gt; {
+  try {
+    const { id } = req.params;
+    const { name_editorial } = req.body;
+    const result = await pool.query(
       'UPDATE editorial SET name_editorial=$1 WHERE id_editorial=$2  RETURNING *',
       [name_editorial, id]
     );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (result.rows.length === 0) {</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (result.rows.length === 0) {
 <span class="cstat-no" title="statement not covered" >      return res.status(404).json({ message: 'Editorial no found --update' });</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return res.json(result.rows[0]);</span>
+    return res.json(result.rows[0]);
   } catch (error) {
 <span class="cstat-no" title="statement not covered" >    next(error);</span>
   }
@@ -346,7 +346,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-19T18:41:45.784Z
+                at 2023-05-19T22:47:55.949Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -12,7 +12,7 @@ const getAllAuthors =  async (req, res, next) => {
         next(error)
     }
 }
-
+ 
 //obtener un autor
 //params(id.author) -> return rowS(id.author)
 const getAuthor = async (req, res, next) => {

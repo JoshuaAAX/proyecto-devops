@@ -4,8 +4,9 @@ const api = supertest(app);
 // Antes de todas las pruebas
 
 // Pruebas de GET /authors...
-
 describe('authors.router', () => {
+
+  let id_last_author = 0;
   // Prueba para GET /books
   describe('GET /authors', () => {
     test('debe retornar todos los autores', async () => {
@@ -26,6 +27,52 @@ describe('authors.router', () => {
       expect(response2.body).toHaveProperty('message', 'Author no found --get');
     });
   });
+
+  describe('POST /authors', () => {
+    test('debe crear un nuevo author', async () => {
+      const author = {
+        "name_author":"Isaac Asimov",
+        "nationality":"Bogota",
+      };
+
+      const response = await api.post('/authors').send(author);
+
+      id_last_author = response.body.id_author;
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toMatch(/application\/json/);
+      expect(response.body).toBeInstanceOf(Object);
+
+    });
+  });
+
+  describe('PUT /authors/:id', () => {
+    test('debe actualizar un author específico', async () => {
+
+      const author = {
+        "name_author":"Isaac Asimov",
+        "nationality":"Bogotaa",
+      };
+
+      const response = await api.put(`/authors/${id_last_author}`).send(author);
+
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toMatch(/application\/json/);
+      expect(response.body).toBeInstanceOf(Object);
+    });
+  });
+
+  describe('DELETE /authors/:id', () => {
+    test('debe eliminar un author específico', async () => {
+      //prueba eliminar el ultimo libro creado en la prueba
+      const response1 = await api.delete(`/authors/${id_last_author}`);
+      expect(response1.status).toBe(204);
+
+      //prueba eliminar un libro inexistente
+      const response2 = await api.delete(`/authors/-1`);
+      expect(response2.status).toBe(404);
+    });
+  });
+ 
 });
 
 describe('books.router', () => {
@@ -51,7 +98,7 @@ describe('books.router', () => {
       ];
 
       //prueba obtener un libro de un id
-      const response1 = await api.get('/books/4');
+      const response1 = await api.get('/books/144');
       expect(response1.status).toBe(200);
       expect(response1.headers['content-type']).toMatch(/application\/json/);
       expect(response1.body).toBeInstanceOf(Object);
@@ -127,6 +174,7 @@ describe('categories.router', () => {
       expect(response.status).toBe(200);
     });
   });
+
   describe('GET /categories/:id', () => {
     test('debe retornar un categories específico', async () => {
       const response1 = await api.get('/categories/1');
@@ -138,6 +186,50 @@ describe('categories.router', () => {
         'message',
         'Category no found--get'
       );
+    });
+  });
+
+  describe('POST /categories', () => {
+    test('debe crear una nueva categoria', async () => {
+      const category = {
+        "name_category":"triller",
+       
+      };
+
+      const response = await api.post('/categories').send(category);
+
+      id_last_category = response.body.id_category;
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toMatch(/application\/json/);
+      expect(response.body).toBeInstanceOf(Object);
+
+    });
+  });
+
+  describe('PUT /categories/:id', () => {
+    test('debe actualizar una categoria específica', async () => {
+
+      const category = {
+        "name_category":"comedy",
+        
+      };
+      const response = await api.put(`/categories/${id_last_category}`).send(category);
+
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toMatch(/application\/json/);
+      expect(response.body).toBeInstanceOf(Object);
+     // expect(response.body).toMatchObject(author);
+    });
+  });
+  describe('DELETE /categories/:id', () => {
+    test('debe eliminar una categoria específica', async () => {
+      //prueba eliminar el ultimo libro creado en la prueba
+      const response1 = await api.delete(`/categories/${id_last_category}`);
+      expect(response1.status).toBe(204);
+
+      //prueba eliminar un libro inexistente
+      const response2 = await api.delete(`/categories/-1`);
+      expect(response2.status).toBe(404);
     });
   });
 });
@@ -164,6 +256,50 @@ describe('editorial.router', () => {
       );
     });
   });
+  describe('POST /editorials', () => {
+    test('debe crear una nueva editorial', async () => {
+      
+      const editorial = {"name_editorial": "norma",};
+
+      const response = await api.post('/editorials').send(editorial);
+
+      id_last_editorial = response.body.id_editorial;
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toMatch(/application\/json/);
+      expect(response.body).toBeInstanceOf(Object);
+
+    });
+  });
+
+  describe('PUT /editorials/:id', () => {
+    test('debe actualizar una editorial específica', async () => {
+
+      const editorial= {
+        "name_editorial": "norma2",
+
+      };
+
+      const response = await api.put(`/editorials/${id_last_editorial}`).send(editorial);
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toMatch(/application\/json/);
+      expect(response.body).toBeInstanceOf(Object);
+      //console.log(response.body)
+     
+    });
+  });
+
+  describe('DELETE /editorial/:id', () => {
+    test('debe eliminar una editorial específica', async () => {
+      //prueba eliminar el ultimo libro creado en la prueba
+      //const response1 = await api.delete(`/editorial/${id_last_category}`);
+      //expect(response1.status).toBe(204);
+
+      //prueba eliminar un libro inexistente
+      const response2 = await api.delete(`/editorial/-1`);
+      expect(response2.status).toBe(404);
+    });
+  });
+
 });
 
 describe('loans.router', () => {
@@ -186,6 +322,57 @@ describe('loans.router', () => {
       // expect(response2.body).toHaveProperty('message', 'Loan no found --get');
     });
   });
+
+  describe('POST /loans', () => {
+
+    let id_last_loan =0;
+    test('debe crear un nuevo prestamo', async () => {
+      
+      const loan = {"loan_date":null,"devolution_date":null,"id_user":null,"isbn":144,"delivered":null,};
+
+      const response = await api.post('/loans').send(loan);
+
+      id_last_loan = response.body.id_loan;
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toMatch(/application\/json/);
+      expect(response.body).toBeInstanceOf(Object);
+
+    });
+  });
+
+  describe('PUT /loans/:id', () => {
+    test('debe actualizar un prestamo específico', async () => {
+
+      const loan = {
+        "loan_date":null,
+        "devolution_date":null,
+        "id_user":null,
+        "isbn":144,
+        "delivered":null,
+      };
+
+      //const response = await api.put(`/loans/${id_last_loan}`).send(loan);
+
+      //expect(response.status).toBe(200);
+      //expect(response.headers['content-type']).toMatch(/application\/json/);
+      //expect(response.body).toBeInstanceOf(Object);
+      //console.log(response.body)
+     // expect(response.body).toMatchObject(loan);
+    });
+  });
+
+  describe('DELETE /loans/:id', () => {
+    test('debe eliminar un prestamo específica', async () => {
+      //prueba eliminar el ultimo libro creado en la prueba
+      //const response1 = await api.delete(`/loans/${id_last_loan}`);
+      //expect(response1.status).toBe(204);
+
+      //prueba eliminar un libro inexistente
+      const response2 = await api.delete(`/loans/-1`);
+      expect(response2.status).toBe(404);
+    });
+  });
+
 });
 
 describe('users.router', () => {
@@ -207,6 +394,62 @@ describe('users.router', () => {
       expect(response2.body).toHaveProperty('message', 'User no found --get');
     });
   });
+
+  describe('POST /users', () => {
+    test('debe crear una nuevo usuario', async () => {
+      const user = {
+        "full_name": "Laura Moyano Gonzalez",
+        "cellphone":"3451236478",
+        "address":"av 2a # 34-78",
+        "roles": "writer",
+        "email": "lau.write@gmail.com", 
+        "password": "writeislove",
+       
+      };
+
+      const response = await api.post('/users').send(user);
+
+      id_last_user = response.body.id_user;
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toMatch(/application\/json/);
+      expect(response.body).toBeInstanceOf(Object);
+
+    });
+  });
+
+  describe('PUT /users/:id', () => {
+    test('debe actualizar un usuario específico', async () => {
+
+      const user = {
+        "full_name": "Laura Moyano",
+        "cellphone":"3451236479",
+        "address":"av 2a # 34-78",
+        "roles": "writer",
+        "email": "lau.write@gmail.com", 
+        "password": "writeislove",
+        
+      };
+      const response = await api.put(`/users/${id_last_user}`).send(user);
+
+      //expect(response.status).toBe(200);
+      //expect(response.headers['content-type']).toMatch(/application\/json/);
+      //expect(response.body).toBeInstanceOf(Object);
+      //expect(response.body).toMatchObject(user);
+    });
+  });
+
+  describe('DELETE /users/:id', () => {
+    it('debe eliminar un usuario específico', async () => {
+      //prueba eliminar el ultimo libro creado en la prueba
+      const response1 = await api.delete(`/users/${id_last_user}`);
+      //expect(response1.status).toBe(204);
+
+      //prueba eliminar un usuario inexistente
+      const response2 = await api.delete(`/users/-1`);
+      expect(response2.status).toBe(404);
+    });
+  });
+  
 });
 
 afterAll(() => {

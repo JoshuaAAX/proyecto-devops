@@ -13,7 +13,7 @@ create table editorial(
 id_editorial serial primary key,
 name_editorial varchar(50)
 );
-
+ 
 create table book(
 isbn serial primary key,
 title varchar(255),
