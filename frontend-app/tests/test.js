@@ -12,7 +12,7 @@ async function runTest() {
     .build();
 
   try {
-    await driver.get("http://localhost:7000");
+    await driver.get("http://24.199.120.226:30528/");
 
     await driver.wait(until.titleIs("drop library"), 5000);
 
