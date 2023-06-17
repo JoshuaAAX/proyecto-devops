@@ -35,9 +35,7 @@ jobs:
           sudo apt-get -f install
 
       - name: selenium
-        run: node frontend-app/e2e/prueba.js || echo "::set-output name=failed::true"
-      - name: Print failed variable
-        run: echo "Failed: ${{ steps.selenium.outputs.failed }}"
+        run: node frontend-app/e2e/prueba.js || echo ::set-output name=failed::true
       - name: Check test failure
         run: |
           if [[ "${{ steps.selenium.outputs.failed }}" == "true" ]]; then
