@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cd frontend-app && npm run build && cd .. && node backend-app/index.js",
+    "selenium": "cd frontend-app/e2e && node prueba.js",
     "dev": "nodemon backend-app/index.js",
     "test": "jest --forceExit",
     "test:coverage": "jest --coverage --forceExit --reporter=lcov",
