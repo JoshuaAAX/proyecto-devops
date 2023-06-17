@@ -36,6 +36,8 @@ jobs:
 
       - name: selenium
         run: node frontend-app/e2e/prueba.js || echo "::set-output name=failed::true"
+      - name: Print failed variable
+        run: echo "Failed: ${{ steps.selenium.outputs.failed }}"
       - name: Check test failure
         run: |
           if [[ "${{ steps.selenium.outputs.failed }}" == "true" ]]; then
