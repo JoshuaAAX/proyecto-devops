@@ -4,7 +4,7 @@ import chrome from 'selenium-webdriver/chrome.js';
 async function runTest() {
   const options = new chrome.Options();
   // Opciones adicionales
-  // options.addArguments('--headless');
+  options.addArguments('--headless');
 
   const driver = await new Builder()
     .forBrowser('chrome')
