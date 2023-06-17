@@ -6,7 +6,7 @@ import chrome from 'selenium-webdriver/chrome.js';
   // Configuración del navegador y la URL del componente
   const options = new chrome.Options();
   options.addArguments('--headless');
-  const url = 'http://24.199.120.226:30528'; // La URL de tu aplicación
+  const url = 'http://24.199.120.226:30528/'; // La URL de tu aplicación
 
   const driver = await new Builder()
     .forBrowser('chrome')
