@@ -33,7 +33,7 @@ import chrome from 'selenium-webdriver/chrome.js';
     try {
       assert.strictEqual(currentUrl, url + '/books');
     } catch (err) {
-      console.error(err);
+      return -1;
     }
 
     // Hacer clic en el enlace "Prestamos"
