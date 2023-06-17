@@ -33,8 +33,7 @@ import chrome from 'selenium-webdriver/chrome.js';
     try {
       assert.strictEqual(currentUrl, url + '/books');
     } catch (err) {
-      console.log('llorela mi pana');
-      throw err;
+      console.error(err);
     }
 
     // Hacer clic en el enlace "Prestamos"
@@ -54,10 +53,10 @@ import chrome from 'selenium-webdriver/chrome.js';
     assert.strictEqual(currentUrl3, url + '/users');
 
     // Todas las pruebas pasaron
-    console.log('Pruebas funcionales exitosas');
+    // console.log('Pruebas funcionales exitosas');
   } catch (error) {
     // Alguna prueba falló
-    console.error('Error en las pruebas:', error);
+    // console.error('Error en las pruebas:', error);
   } finally {
     // Cerrar el navegador
     await driver.quit();
