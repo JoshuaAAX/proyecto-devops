@@ -80,7 +80,7 @@ function items() {
   });
   //console.log(newItem)
 
-  // logica para el boton de editar
+  // logica parda el boton de editar
   // usado para el boton de editar (boolean)
   const [valueClose, setValueClose] = useState(false);
   const { isOpen: isEditItemOpen, onOpen: onEditItemOpen, onClose: onEditItemClose } = useDisclosure();
