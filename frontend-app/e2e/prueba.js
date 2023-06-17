@@ -1,6 +1,7 @@
 import { Builder, By } from 'selenium-webdriver';
 import assert from 'assert';
 import chrome from 'selenium-webdriver/chrome.js';
+import { exit } from 'process';
 
 (async function example() {
   // Configuración del navegador y la URL del componente
@@ -33,7 +34,7 @@ import chrome from 'selenium-webdriver/chrome.js';
     try {
       assert.strictEqual(currentUrl, url + '/books');
     } catch (err) {
-      console.log(err);
+      exit(1);
     }
 
     // Hacer clic en el enlace "Prestamos"
