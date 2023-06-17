@@ -5,7 +5,7 @@ import chrome from 'selenium-webdriver/chrome.js';
 (async function example() {
   // Configuración del navegador y la URL del componente
   const options = new chrome.Options();
-  const url = 'http://localhost:7000'; // La URL de tu aplicación
+  const url = 'http://24.199.120.226:30528/'; // La URL de tu aplicación
 
   const driver = await new Builder()
     .forBrowser('chrome')
