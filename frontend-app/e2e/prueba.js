@@ -7,7 +7,7 @@ import { exit } from 'process';
   // Configuración del navegador y la URL del componente
   const options = new chrome.Options();
   options.addArguments('--headless');
-  const url = 'http://24.199.120.226:30528/'; // La URL de tu aplicación
+  const url = 'http://24.199.120.226:30528'; // La URL de tu aplicación
 
   const driver = await new Builder()
     .forBrowser('chrome')
@@ -23,7 +23,12 @@ import { exit } from 'process';
       className: 'chakra-heading',
     });
     const titleText = await titleElement.getText();
-    assert.strictEqual(titleText, 'DROP_PRUEBA');
+    try {
+      assert.strictEqual(titleText, 'DROP_PRUEBA');
+    } catch (err) {
+      console.log(err);
+      exit(1);
+    }
 
     // Hacer clic en el enlace "Libros"
     const librosLink = await driver.findElement(By.linkText('Libros'));
@@ -43,7 +48,11 @@ import { exit } from 'process';
 
     // Verificar la URL actual después de hacer clic en "Prestamos"
     const currentUrl2 = await driver.getCurrentUrl();
-    assert.strictEqual(currentUrl2, url + '/loans');
+    try {
+      assert.strictEqual(currentUrl2, url + '/loans');
+    } catch (err) {
+      exit(1);
+    }
 
     // Hacer clic en el enlace "Usuarios"
     const usuariosLink = await driver.findElement(By.linkText('Usuarios'));
@@ -51,7 +60,11 @@ import { exit } from 'process';
 
     // Verificar la URL actual después de hacer clic en "Usuarios"
     const currentUrl3 = await driver.getCurrentUrl();
-    assert.strictEqual(currentUrl3, url + '/users');
+    try {
+      assert.strictEqual(currentUrl3, url + '/users');
+    } catch (err) {
+      exit(1);
+    }
 
     // Todas las pruebas pasaron
     // console.log('Pruebas funcionales exitosas');
