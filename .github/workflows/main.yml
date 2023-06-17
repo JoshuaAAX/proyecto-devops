@@ -35,10 +35,10 @@ jobs:
           sudo apt-get -f install
 
       - name: selenium
-        run: node frontend-app/e2e/prueba.js || echo ::set-output name=failed::true
+        run: node frontend-app/e2e/prueba.js || echo "action_state=true" >> "$GITHUB_ENV"
       - name: Check test failure
         run: |
-          if [[ "${{ steps.selenium.outputs.failed }}" == "true" ]]; then
+          if [[ "${{ env.action_state }}" == "true" ]]; then
             echo "Functional tests failed. Aborting pipeline."
             exit 1
           fi
