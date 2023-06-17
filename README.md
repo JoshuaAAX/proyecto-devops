@@ -39,7 +39,23 @@ docker run -p 7000:7000 devops-proyect
 - Selenium
 - Docker
 - Kubernetes
-![image](https://github.com/JoshuaAAX/proyecto-devops/assets/65038415/d70fcb64-9152-492b-bb68-bcf2793d03ac)  
+![image](https://github.com/JoshuaAAX/proyecto-devops/assets/65038415/bc16067e-1135-4ba3-a098-f33d1674e68a)
+
+In our project, we implemented a highly efficient and automated CI/CD pipeline architecture to streamline the development, testing, and continuous deployment of our applications. We utilized several popular technologies to achieve this.
+
+To start off, we leveraged React, a widely-used JavaScript library for building interactive user interfaces. React enabled us to create reusable components and construct a responsive and modern UI for our applications.
+
+Next, we employed Express and Node.js to develop our server layer. Express is a fast and minimalist web framework that allowed us to easily create RESTful APIs for our applications. Node.js provided us with an efficient runtime environment to execute the server and manage client requests and responses.
+
+For storing and managing our data, we utilized PostgreSQL, a reliable and scalable relational database. PostgreSQL enabled us to securely and efficiently store and manipulate data, while providing the flexibility needed to adapt to changing requirements of our applications.
+
+To perform comprehensive automated testing, we implemented Jest and Selenium. Jest is a JavaScript testing framework that allowed us to write and execute unit and integration tests easily and efficiently. Selenium, on the other hand, was a tool we used for functional and navigation testing of our web applications, ensuring that they functioned correctly across different browsers and environments.
+
+To automate the entire CI/CD process, we leveraged GitHub Actions, a cloud-based continuous integration and delivery platform. GitHub Actions allowed us to define custom workflows that automatically triggered when changes were made to our code repository on GitHub. These workflows could include tasks such as automated testing, artifact compilation, and deployment to testing or production environments.
+
+To ensure our applications ran consistently across different environments, we utilized Docker and Kubernetes. Docker allowed us to package our applications and their dependencies into lightweight and portable containers. This facilitated the deployment and execution of our applications in any Docker-compatible environment. Kubernetes, on the other hand, was a container orchestration platform that enabled us to efficiently manage and scale our containers, ensuring optimal performance and high availability of our applications.
+
+We used Slack for notifications and prometheus for monitoring. 
 
 # ```App Design```
 ![image](https://github.com/JoshuaAAX/proyecto-devops/assets/65038415/e50a673a-ada3-49da-acaa-9a2b800e538f)
