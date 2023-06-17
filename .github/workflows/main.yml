@@ -22,12 +22,29 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+
       - name: Install dependencies
         run: npm ci
+
       - name: Run Jest tests
         run: npm run test:coverage
       - name: Install frontend dependencies
         run: npm i --prefix frontend-app
+      
+         
+      - name: run proyect
+        run: npm start 
+        
+        uses: cypress-io/github-action@v5
+        with:
+          browser: firefox
+
+      
+      - name: cypress
+        uses: cypress-io/github-action@v5
+        with:
+          browser: firefox
+
       - name: Install Google Chrome
         run: |
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -52,11 +69,6 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_MESSAGE: 'Test results: ${{ job.status }}'
-
-      - name: cypress
-        uses: cypress-io/github-action@v5
-        with:
-          browser: firefox
 
       - name: Log in to Docker Hub
         if: ${{ success() }}
