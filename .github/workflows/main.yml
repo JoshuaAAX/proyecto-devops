@@ -30,11 +30,19 @@ jobs:
         run: npm run test:coverage
       - name: Install frontend dependencies
         run: npm i --prefix frontend-app
-      
          
-      - name: run proyect
-        run: npm start 
-      
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: false
+          tags: my-image:latest
+          
+      - name: Run Docker Container
+        run: |
+          docker run -d --name my-container -p 7000:7000 my-image
+          
       - name: cypress
         uses: cypress-io/github-action@v5
         with:
