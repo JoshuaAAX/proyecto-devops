@@ -34,7 +34,7 @@ jobs:
           sudo dpkg -i google-chrome-stable_current_amd64.deb
           sudo apt-get -f install
 
-      - name: Run functional tests
+      - name: selenium
         run: npm run selenium || echo "::set-output name=failed::true"
       - name: Check test status and stop pipeline
         if: steps.selenium.outputs.failed == 'true'
