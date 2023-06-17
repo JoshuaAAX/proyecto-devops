@@ -15,43 +15,61 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-   #   - name: Set up Node.js
-   #     uses: actions/setup-node@v2
-   #     with:
-   #       node-version: 14
-   #  - name: Install dependencies
-   #   run: npm ci
-   #   - name: Run Jest tests
-   #     run: npm run test:coverage
-   #  - name: SonarCloud Scan
-   #     uses: sonarsource/sonarcloud-github-action@master
-   #     env:
-   #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-   #       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-   #   - name: Notify Slack
-   #     uses: rtCamp/action-slack-notify@v2
-   #     env:
-   #       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-   #       SLACK_MESSAGE: 'Test results: ${{ job.status }}'     
-              
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Jest tests
+        run: npm run test:coverage
+      - name: Install frontend dependencies
+        run: npm i --prefix frontend-app
+      - name: Install Google Chrome
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          sudo apt-get -f install
+
+      - name: selenium
+        run: node frontend-app/e2e/prueba.js || echo "action_state=true" >> "$GITHUB_ENV"
+      - name: Check test failure
+        run: |
+          if [[ "${{ env.action_state }}" == "true" ]]; then
+            echo "Functional tests failed. Aborting pipeline."
+            exit 1
+          fi
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Notify Slack
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: 'Test results: ${{ job.status }}'
+
       - name: Log in to Docker Hub
+        if: ${{ success() }}
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build and push Docker image
+        if: ${{ success() }}
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
-          
+
       - name: Install and setup kubectl
+        if: ${{ success() }}
         run: |
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
           chmod +x kubectl
@@ -62,9 +80,10 @@ jobs:
           KUBECONFIG: ./kubeconfig.yaml
 
       - name: Deploy to Kubernetes
+        if: ${{ success() }}
         run: |
           kubectl get nodes 
           kubectl set image deployment/${{secrets.DEPLOYMENT_NAME}}  ${{ env.IMAGE_NAME }}=${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}
-          kubectl rollout restart deployment/${{secrets.DEPLOYMENT_NAME}} 
+          kubectl rollout restart deployment/${{secrets.DEPLOYMENT_NAME}}
         env:
           KUBECONFIG: ./kubeconfig.yaml
