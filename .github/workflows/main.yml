@@ -35,10 +35,13 @@ jobs:
           sudo apt-get -f install
 
       - name: selenium
-        run: npm run selenium || echo "::set-output name=failed::true"
-      - name: Check test status and stop pipeline
-        if: steps.selenium.outputs.failed == 'true'
-        run: exit 1
+        run: node frontend-app/e2e/prueba.js || echo "::set-output name=failed::true"
+      - name: Check test failure
+        run: |
+          if [[ "${{ steps.selenium.outputs.failed }}" == "true" ]]; then
+            echo "Functional tests failed. Aborting pipeline."
+            exit 1
+          fi
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
