@@ -30,7 +30,12 @@ import chrome from 'selenium-webdriver/chrome.js';
 
     // Verificar la URL actual después de hacer clic en "Libros"
     const currentUrl = await driver.getCurrentUrl();
-    assert.strictEqual(currentUrl, url + '/books');
+    try {
+      assert.strictEqual(currentUrl, url + '/books');
+    } catch (err) {
+      console.log('llorela mi pana');
+      throw err;
+    }
 
     // Hacer clic en el enlace "Prestamos"
     const prestamosLink = await driver.findElement(By.linkText('Prestamos'));
