@@ -36,6 +36,9 @@ jobs:
 
       - name: Run functional tests
         run: npm run selenium
+      - name: Stop Execution on Test Failure
+        if: ${{ failure() }}
+        run: exit 1
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
