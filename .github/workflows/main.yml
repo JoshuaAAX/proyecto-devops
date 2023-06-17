@@ -53,6 +53,11 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_MESSAGE: 'Test results: ${{ job.status }}'
 
+      - name: cypress
+        uses: cypress-io/github-action@v5
+        with:
+          browser: firefox
+
       - name: Log in to Docker Hub
         if: ${{ success() }}
         uses: docker/login-action@v2
