@@ -34,11 +34,6 @@ jobs:
          
       - name: run proyect
         run: npm start 
-        
-        uses: cypress-io/github-action@v5
-        with:
-          browser: firefox
-
       
       - name: cypress
         uses: cypress-io/github-action@v5
