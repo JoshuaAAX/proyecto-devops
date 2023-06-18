@@ -56,6 +56,14 @@ To automate the entire CI/CD process, we leveraged GitHub Actions, a cloud-based
 To ensure our applications ran consistently across different environments, we utilized Docker and Kubernetes. Docker allowed us to package our applications and their dependencies into lightweight and portable containers. This facilitated the deployment and execution of our applications in any Docker-compatible environment. Kubernetes, on the other hand, was a container orchestration platform that enabled us to efficiently manage and scale our containers, ensuring optimal performance and high availability of our applications.
 
 We used Slack for notifications and prometheus for monitoring. 
+You can check prometheus in this link:
+http://24.199.120.226:30000/graph
+
+Here's our slack channel where we notify all the important things 
+
+
+<img src="https://i.imgur.com/jmXmmUR.jpg" alt="image" width="100">
+
 
 # ```App Design```
 ![image](https://github.com/JoshuaAAX/proyecto-devops/assets/65038415/e50a673a-ada3-49da-acaa-9a2b800e538f)
